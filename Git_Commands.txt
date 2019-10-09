@@ -167,7 +167,10 @@
    2.) Merge a branch into a target branch	
             - git merge <source branch> <target branch>
 
-   3.) Merging conflicts
+   3.) Preview changes before merging
+            - git diff <source branch> <target branch>	
+
+   4.) Merging conflicts
             - Merge conflicts occur when competing changes are made to the same line of a file, or when one person edits a file and another person deletes the same file. To resolve a merge conflict caused by competing line changes, you must choose which changes to incorporate from the different branches in a new commit.
 
 
