@@ -1,0 +1,226 @@
+====================================== Git Commands ======================================
+
+
+-------------------------- Initilizing a Git Repo --------------------------
+
+   1.) Creating a git repo
+             - init git
+
+
+
+-------------------------- Staging --------------------------
+
+   1.) Add a file to staging area
+             - git add <file_name>
+
+   2.) Add multiple files to staging area
+	     - git add <file_name>  <file_name> .......
+ 
+   3.) Add all files to staging area
+             - git add .
+
+   4.) Add all new and changed files to the staging area
+	     - git add -A	
+
+   5.) Remove file from staging area 
+             - git rm --cached <file_name>
+             have to stage and commit again
+   
+   6.) Discard Changes before staging
+             - git chechout -- <file_name>
+             Changes done will be lost
+
+
+
+
+-------------------------- Commiting --------------------------
+
+   1.) Commiting a file
+	     - git commit -m <'Commit Message'> <file_name>
+
+   2.) Commit multiple files 
+             - git commit -m <'Commit Message'> <file_name> <file_name> <file_name>......
+
+   3.) Commit all staged files
+             - git commit -a -m <'Commit Message'>
+
+   4.) Make a commit without a message
+	     - git commit -a --allow-empty-message -m ''
+
+   5.) Unstage a file AFTER staging
+             - git reset HEAD <file_name>
+
+
+
+
+-------------------------- Utils --------------------------
+
+   1.) Getting a log
+	     - git log
+             - git log --oneline
+
+   2.) .gitignore
+
+             ignores file names added in this file from modifications. Have to add and commit the .gitignore as well. Usually done at the start of the project. If adding the .gitignore after a while needs to run rm -f --cached . and then stage and commit the files to be tracked along with the .gitignore. 
+
+   3.) List of tracked files
+             - git ls-files
+
+
+
+
+-------------------------- Checkout vs Revert vs Reset --------------------------
+
+   1.) Git checkout
+	     - git checkout <commit id> - shows the status at the commit 
+	     - git checkout master - moves back to last commit status 
+
+	     Use this to move the HEAD pointer to a specific commit or switch between branches.It rollbacks any content changes to those of the specific commit.This will not make changes to the commit history. Has potential to overwrite files in the working directory
+
+   2.) Git revert
+             - git revert <commit id> - 
+
+	     Rollback changes you have committed. Creates a new commit from a specified commit by inverting it. Hence, adds a new commit history to the project, but it does not delete any carried out commits and always can move to any of the previous commits. Has the potential to overwrite files in the working directory
+
+   3.) Git reset
+
+             - A - B - C (master)
+
+             - git reset --soft Head~<number of steps to go back> Goes back the number of steps specified. The commits done in those steps are not lost. Have to commit the file/s again. Can be used to change a wrongly typed commit message
+
+             -git reset Head~<number of steps to go back> Goes back the number of steps specified. The commits done in those steps are not lost.  Need to stage the file/s first and then do the commit.Other wise the reset  commits are lost. Can be used to modify the content of a file.
+
+             - git reset --hard Head~<number of steps to go back> Goes back the number of steps specified. The commits done in those steps are lost.
+
+
+
+
+  
+-------------------------- Branches --------------------------
+
+   1.) Creating a branch 
+            - need to do the initial commit on the master branch before creating any branches
+            - git checkout -b <branch name> (Creates a branch with the given name and moves to it)
+            - git branch <branch name> (Only creates a new branch but doesn't move to it)
+
+   2.) Rename a local branch
+            - git branch -m <old branch name> <new branch name>
+
+   3.) Moving to a branch
+            - git checkout <branch name> 
+
+   4.) Switch to the branch last checked out
+            - git checkout -	
+
+   5.) Listing branches
+            - git branch -a
+            - git branch --list 
+
+   6.) Removing a branch
+            - git branch -d <branch name> (Can't delete when inside that branch)
+
+
+
+
+
+-------------------------- Stash --------------------------
+
+         Git Stash allows us to keep aside the current working directory & provides us with a clean working directory. All the files that have been stashed can then be retrieved once we have time to work on them.
+
+    1.) Creating a stash
+            - git stash or git stash save <message> (stash only the tracked files)
+            - git stash -u (All tracked and untracked files)
+
+    2.) Handling only one stash record
+            apply the stash -  git stash apply (need to add and commit the stashed record)
+            drop the stash - git stash drop
+            apply and drop the stash - git stash pop
+
+    3.) list satshes
+            - git stash list
+
+    4.) Check details of a stash
+            - git stash show stash@{<number>}
+
+    5.) Apply a stash from many stashes
+            - git stash apply stash@{<number>}
+
+    6.) Drop a stash from many stashes
+            - git stash apply stash@{<number>} 
+
+    7.) Drop all stashes
+	    - git stash clear
+
+    8.) Restore stash to a new branch
+            - git stash -u
+            - git stash branch branch_new 
+            
+
+             
+
+
+-------------------------- Merging --------------------------
+
+   1.) Merge a branch into the active branch
+            - git merge <branch name>
+
+   2.) Merge a branch into a target branch	
+            - git merge <source branch> <target branch>
+
+   3.) Merging conflicts
+            - Merge conflicts occur when competing changes are made to the same line of a file, or when one person edits a file and another person deletes the same file. To resolve a merge conflict caused by competing line changes, you must choose which changes to incorporate from the different branches in a new commit.
+
+
+
+
+-------------------------- Forking --------------------------
+
+   1.) First fork the repo that you need to using the fork button which will create copy of the forked repo in your bashboard. Then that copy can be cloned in to your local machine. 
+
+   2.) Syncing with the forked repo
+            - git remote add upstream <URL of orginal repo> (Upstream is used to connect with the original repo that you forked)
+            - git fetch upstream
+            - git merge upstream/master
+
+
+
+   	
+-------------------------- Pushing --------------------------
+
+   1.) Add a remote repo
+            - git remote add origin <Repo URl> 
+
+   2.) Adding several remotes
+            - git remote add origin <Repo URl>
+            - git remote add remote <Repo URL>
+            - git remote update
+
+   2.) Removing the remote repo
+            -  git remote rm origin
+
+   2.) Push a branch to your remote repository 
+            - git push origin <branch name>
+
+   3.) Push changes to remote repository and remember the branch
+            - git push -u origin <branch name>
+
+   4.) Push changes to remote repository (remembered branch)
+            - git push
+
+   5.) Push all bracnges 
+            - git push --all origin
+
+  
+
+
+-------------------------- Pulling --------------------------
+
+   1.) Update local repository to the newest commit
+             - git pull
+
+   2.) Pull changes from remote repository
+             - git pull origin <branch name>
+
+
+
+-------------------------- Rebase --------------------------	
